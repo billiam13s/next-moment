@@ -20,7 +20,7 @@ export default function() {
 
     it("Second before start", (done) => {
       const completedAt = TODAY.clone().subtract(1, "seconds");
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -30,7 +30,7 @@ export default function() {
 
     it("Second after start", (done) => {
       const completedAt = TODAY.clone().add(1, "seconds");
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -40,7 +40,7 @@ export default function() {
 
     it("Second before first repeat", (done) => {
       const completedAt = TODAY.clone().add(1, "minutes").subtract(1, "seconds");
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));

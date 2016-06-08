@@ -24,7 +24,7 @@ describe("Minutely", () => {
         "interval": interval,
         "end_at": endAt,
       };
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -38,7 +38,7 @@ describe("Minutely", () => {
         "interval": interval,
         "end_at": endAt,
       };
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -52,7 +52,7 @@ describe("Minutely", () => {
         "interval": interval,
         "end_at": endAt,
       };
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -66,7 +66,7 @@ describe("Minutely", () => {
         "interval": interval,
         "end_at": endAt,
       };
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -80,7 +80,7 @@ describe("Minutely", () => {
         "interval": interval,
         "end_at": endAt,
       };
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -95,7 +95,7 @@ describe("Minutely", () => {
         "end_at": endAt
       };
       const completedAt = TODAY.clone().add(1, "minutes").subtract(1, "seconds");
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -110,7 +110,7 @@ describe("Minutely", () => {
         "end_at": endAt,
       };
       const completedAt = TODAY.clone().add(1, "minutes").add(1, "seconds");
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -131,7 +131,7 @@ describe("Minutely", () => {
         "interval": interval,
         "end_at": endAt,
       };
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -145,7 +145,7 @@ describe("Minutely", () => {
         "interval": interval,
         "end_at": endAt,
       };
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -159,7 +159,7 @@ describe("Minutely", () => {
         "interval": interval,
         "end_at": endAt,
       };
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -173,7 +173,7 @@ describe("Minutely", () => {
         "interval": interval,
         "end_at": endAt,
       };
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -187,7 +187,7 @@ describe("Minutely", () => {
         "interval": interval,
         "end_at": endAt,
       };
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -201,7 +201,7 @@ describe("Minutely", () => {
         "interval": interval,
         "end_at": endAt,
       };
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -215,7 +215,7 @@ describe("Minutely", () => {
         "interval": interval,
         "end_at": endAt,
       };
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -229,7 +229,7 @@ describe("Minutely", () => {
         "interval": interval,
         "end_at": endAt,
       };
-      const actual = minutely(startAt, options, null, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));

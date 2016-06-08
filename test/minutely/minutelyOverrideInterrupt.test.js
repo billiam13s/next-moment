@@ -19,9 +19,10 @@ describe("Minutely", () => {
       const options = {
         "interval": interval,
         "end_at": endAt,
+        "interrupt": false
       };
       const expected = TODAY.clone().add(interval, "minutes");
-      const actual = minutely(startAt, options, false, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -34,9 +35,10 @@ describe("Minutely", () => {
       const options = {
         "interval": interval,
         "end_at": endAt,
+        "interrupt": false
       };
       const expected = TODAY.clone().add(interval, "minutes");
-      const actual = minutely(startAt, options, false, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -49,9 +51,10 @@ describe("Minutely", () => {
       const options = {
         "interval": interval,
         "end_at": endAt,
+        "interrupt": false
       };
       const expected = TODAY.clone().add(interval, "minutes");
-      const actual = minutely(startAt, options, false, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -64,9 +67,10 @@ describe("Minutely", () => {
       const options = {
         "interval": interval,
         "end_at": endAt,
+        "interrupt": true
       };
       const expected = TODAY.clone().add(2, "minutes");
-      const actual = minutely(startAt, options, true, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -79,9 +83,10 @@ describe("Minutely", () => {
       const options = {
         "interval": interval,
         "end_at": endAt,
+        "interrupt": true
       };
       const expected = TODAY.clone().add(2, "minutes");
-      const actual = minutely(startAt, options, true, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
@@ -94,9 +99,10 @@ describe("Minutely", () => {
       const options = {
         "interval": interval,
         "end_at": endAt,
+        "interrupt": true
       };
       const expected = TODAY.clone().add(3, "minutes");
-      const actual = minutely(startAt, options, true, completedAt.clone());
+      const actual = minutely(startAt, options, completedAt.clone());
 
       assert.isTrue(moment.isMoment(actual));
       assert.isTrue(expected.isSame(actual));
