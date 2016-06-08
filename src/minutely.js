@@ -1,4 +1,6 @@
 import moment from 'moment';
+import adjustDST from './adjustDST';
+
 
 export default function(base, options, interrupt = false, current = moment()) {
   let endAt = options.end_at;
@@ -23,7 +25,7 @@ export default function(base, options, interrupt = false, current = moment()) {
   const addInterval = (Math.floor(diffInterval / interval) + 1) * interval;
   let nextStart = base.clone().add(addInterval, "minutes");
 
-  //  nextStart = adjustDST(base, nextStart);
+  nextStart = adjustDST(base, nextStart);
 
   if (endAt && nextStart.isAfter(endAt)) {
     return false;
