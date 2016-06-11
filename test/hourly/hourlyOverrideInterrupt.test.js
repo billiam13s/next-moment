@@ -13,15 +13,15 @@ import hourly from '../../src/hourly';
 //   TODO: Some of the test will fail when its run within the few hours of daylight
 //   saving starts and ends dattes
 // ****************************************************************************
-describe("Hourly", function() {
+describe("Hourly", () => {
   const TODAY = moment();
 
-  describe("Override Interrupt", function() {
+  describe("Override Interrupt", () => {
     const startAt = TODAY.clone();
     const endAt = TODAY.clone().add(3, "hours");
     const interval = 1;
 
-    it("Second after first repeat - global", function(done) {
+    it("Second after first repeat - global", (done) => {
       const options = {
         "interval": interval,
         "end_at": endAt,
@@ -37,7 +37,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second before last repeat - global", function(done) {
+    it("Second before last repeat - global", (done) => {
       const options = {
         "interval": interval,
         "end_at": endAt,
@@ -53,7 +53,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second after last repeat - global", function(done) {
+    it("Second after last repeat - global", (done) => {
       const options = {
         "interval": interval,
         "end_at": endAt,
@@ -69,7 +69,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second after first repeat - data", function(done) {
+    it("Second after first repeat - data", (done) => {
       const options = {
         "interval": interval,
         "end_at": endAt,
@@ -85,7 +85,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second before last repeat - data", function(done) {
+    it("Second before last repeat - data", (done) => {
       const options = {
         "interval": interval,
         "end_at": endAt,
@@ -101,7 +101,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second after last repeat - data", function(done) {
+    it("Second after last repeat - data", (done) => {
       const options = {
         "interval": interval,
         "end_at": endAt,

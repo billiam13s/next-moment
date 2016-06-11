@@ -14,21 +14,21 @@ import hourly from '../../src/hourly';
 //   TODO: Some of the test will fail when its run within the few hours of daylight
 //   saving starts and ends dattes
 // ****************************************************************************
-describe("Hourly", function() {
+describe("Hourly", () => {
   const TODAY = moment();
 
-  describe("Non interrupt", function() {
+  describe("Non interrupt", () => {
     basicTest();
     const startAt = TODAY.clone();
     const endAt = TODAY.clone().add(2, "hours").add(30, "minutes");
     const interval = 1;
+    const options = {
+      "interval": interval,
+      "end_at": endAt
+    };
     const expected = TODAY.clone().add(interval, "hours");
 
-    it("Second after first repeat", function(done) {
-      const options = {
-        "interval": interval,
-        "end_at": endAt
-      };
+    it("Second after first repeat", (done) => {
       const completedAt = TODAY.clone().add(1, "hours").add(1, "seconds");
       const actual = hourly(startAt, options, completedAt.clone());
 
@@ -38,11 +38,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second before last repeat", function(done) {
-      const options = {
-        "interval": interval,
-        "end_at": endAt,
-      };
+    it("Second before last repeat", (done) => {
       const completedAt = TODAY.clone().add(2, "hours").subtract(1, "seconds");
       const actual = hourly(startAt, options, completedAt.clone());
 
@@ -52,11 +48,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second after last repeat", function(done) {
-      const options = {
-        "interval": interval,
-        "end_at": endAt,
-      };
+    it("Second after last repeat", (done) => {
       const completedAt = TODAY.clone().add(2, "hours").add(1, "seconds");
       const actual = hourly(startAt, options, completedAt.clone());
 
@@ -66,11 +58,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second before end", function(done) {
-      const options = {
-        "interval": interval,
-        "end_at": endAt,
-      };
+    it("Second before end", (done) => {
       const completedAt = TODAY.clone().add(3, "hours").subtract(1, "seconds");
       const actual = hourly(startAt, options, completedAt.clone());
 
@@ -80,11 +68,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second after end", function(done) {
-      const options = {
-        "interval": interval,
-        "end_at": endAt,
-      };
+    it("Second after end", (done) => {
       const completedAt = TODAY.clone().add(3, "hours").add(1, "seconds");
       const actual = hourly(startAt, options, completedAt.clone());
 
@@ -94,7 +78,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second before end - actual ending", function(done) {
+    it("Second before end - actual ending", (done) => {
       const endAt = TODAY.clone().add(1, "hours");
       const options = {
         "interval": interval,
@@ -109,7 +93,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second after end - actual ending", function(done) {
+    it("Second after end - actual ending", (done) => {
       const endAt = TODAY.clone().add(1, "hours");
       const options = {
         "interval": interval,
@@ -125,17 +109,17 @@ describe("Hourly", function() {
     });
   }); // end of Non interrupt
 
-  describe("Non interrupt 2h interval 5h length", function() {
+  describe("Non interrupt 2h interval 5h length", () => {
     const startAt = TODAY.clone();
     const endAt = TODAY.clone().add(5, "hours");
     const interval = 2;
+    const options = {
+      "interval": interval,
+      "end_at": endAt,
+    };
     const expected = TODAY.clone().add(interval, "hours");
 
-    it("Second before start", function(done) {
-      const options = {
-        "interval": interval,
-        "end_at": endAt,
-      };
+    it("Second before start", (done) => {
       const completedAt = TODAY.clone().subtract(1, "seconds");
       const actual = hourly(startAt, options, completedAt.clone());
 
@@ -145,11 +129,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second after start", function(done) {
-      const options = {
-        "interval": interval,
-        "end_at": endAt,
-      };
+    it("Second after start", (done) => {
       const completedAt = TODAY.clone().add(1, "seconds");
       const actual = hourly(startAt, options, completedAt.clone());
 
@@ -159,11 +139,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second before first repeat", function(done) {
-      const options = {
-        "interval": interval,
-        "end_at": endAt,
-      };
+    it("Second before first repeat", (done) => {
       const completedAt = TODAY.clone().add(2, "hours").subtract(1, "seconds");
       const actual = hourly(startAt, options, completedAt.clone());
 
@@ -173,11 +149,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second after first repeat", function(done) {
-      const options = {
-        "interval": interval,
-        "end_at": endAt,
-      };
+    it("Second after first repeat", (done) => {
       const completedAt = TODAY.clone().add(2, "hours").add(1, "seconds");
       const actual = hourly(startAt, options, completedAt.clone());
 
@@ -187,11 +159,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second before last repeat", function(done) {
-      const options = {
-        "interval": interval,
-        "end_at": endAt,
-      };
+    it("Second before last repeat", (done) => {
       const completedAt = TODAY.clone().add(4, "hours").subtract(1, "seconds");
       const actual = hourly(startAt, options, completedAt.clone());
 
@@ -201,11 +169,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second after last repeat", function(done) {
-      const options = {
-        "interval": interval,
-        "end_at": endAt,
-      };
+    it("Second after last repeat", (done) => {
       const completedAt = TODAY.clone().add(4, "hours").add(1, "seconds");
       const actual = hourly(startAt, options, completedAt.clone());
 
@@ -215,11 +179,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second before end", function(done) {
-      const options = {
-        "interval": interval,
-        "end_at": endAt,
-      };
+    it("Second before end", (done) => {
       const completedAt = TODAY.clone().add(5, "hours").subtract(1, "seconds");
       const actual = hourly(startAt, options, completedAt.clone());
 
@@ -229,11 +189,7 @@ describe("Hourly", function() {
 
     });
 
-    it("Second after end", function(done) {
-      const options = {
-        "interval": interval,
-        "end_at": endAt,
-      }
+    it("Second after end", (done) => {
       const completedAt = TODAY.clone().add(5, "hours").add(1, "seconds");
       const actual = hourly(startAt, options, completedAt.clone());
 

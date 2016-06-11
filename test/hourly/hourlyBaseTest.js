@@ -18,7 +18,7 @@ export default function() {
     };
     const expected = TODAY.clone().add(interval, "hours");
 
-    it("Second before start", function(done) {
+    it("Second before start", (done) => {
       const completedAt = TODAY.clone().subtract(1, "seconds");
       const actual = hourly(startAt, options, completedAt.clone());
 
@@ -28,7 +28,7 @@ export default function() {
 
     });
 
-    it("Second after start", function(done) {
+    it("Second after start", (done) => {
       const completedAt = TODAY.clone().add(1, "seconds");
       const actual = hourly(startAt, options, completedAt.clone());
 
@@ -38,7 +38,7 @@ export default function() {
 
     });
 
-    it("Second before first repeat", function(done) {
+    it("Second before first repeat", (done) => {
       const completedAt = TODAY.clone().add(1, "hours").subtract(1, "seconds");
       const actual = hourly(startAt, options, completedAt.clone());
 
