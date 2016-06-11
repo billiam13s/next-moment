@@ -14,8 +14,8 @@ export default function(base, options, current = moment()) {
     endAt = moment(endAt);
 
   // current moment in time
-  if (!current || !moment.isMoment(current))
-    current = current ? moment(current) : moment();
+  if (!moment.isMoment(current))
+    current = moment(current);
 
   let nextStart = false;
   let diffInterval = 0;
