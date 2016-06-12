@@ -2,7 +2,7 @@
   "name": "next-moment",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/next-moment.js",
+  "main": "dist/NextMoment.js",
   "scripts": {
     "build": "babel src -d dist",
     "test": "mocha --reporter nyan --compilers js:babel-register test/**/*.test.js test/*.test.js"
