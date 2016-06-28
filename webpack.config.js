@@ -1,7 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var PROD = (process.env.NODE_ENV === 'production') ? true : false;
-
+var WORKDIR = __dirname;
 var PLUGINS = !PROD ? [] : [
   new webpack.optimize.UglifyJsPlugin({
     compress: {
@@ -9,15 +9,14 @@ var PLUGINS = !PROD ? [] : [
     }
   })
 ];
-
 var FILENAME = PROD ? 'NextMoment.min.js' : 'NextMoment.js';
 
 module.exports = {
   entry: [
-    __dirname + '/src/NextMoment'
+    path.join(WORKDIR, 'src/NextMoment')
   ],
   output: {
-    path: __dirname + "/dist",
+    path: path.join(WORKDIR, 'dist'),
     filename: FILENAME
   },
   debug: true,
@@ -30,7 +29,7 @@ module.exports = {
     noParse: ["moment"],
     loaders: [{
       test: /\.js$/,
-      include: path.join(__dirname, 'src'),
+      include: path.join(WORKDIR, 'src'),
       loader: 'babel-loader',
       query: {
         presets: ['es2015']
