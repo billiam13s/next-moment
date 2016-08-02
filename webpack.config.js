@@ -16,6 +16,7 @@ module.exports = {
     path.join(WORKDIR, 'src/NextMoment')
   ],
   output: {
+    libraryTarget: 'umd', // https://webpack.github.io/docs/configuration.html#output-librarytarget
     path: path.join(WORKDIR, 'dist'),
     filename: FILENAME
   },
