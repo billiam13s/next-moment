@@ -155,9 +155,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	exports.default = function (base, options) {
-	  var current = arguments.length <= 2 || arguments[2] === undefined ? (0, _moment2.default)() : arguments[2];
-	
+	exports.default = function (base, options, current) {
+	  current = current || (0, _moment2.default)();
 	  var endAt = options.end_at;
 	  var interval = options.interval > 0 ? options.interval : 1; // set invalid interval to 1
 	
@@ -244,9 +243,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	exports.default = function (base, options) {
-	  var current = arguments.length <= 2 || arguments[2] === undefined ? (0, _moment2.default)() : arguments[2];
-	
+	exports.default = function (base, options, current) {
+	  current = current || (0, _moment2.default)();
 	  var endAt = options.end_at;
 	  var interval = options.interval > 0 ? options.interval : 1; // set invalid interval to 1
 	
@@ -297,9 +295,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	exports.default = function (base, options) {
-	  var current = arguments.length <= 2 || arguments[2] === undefined ? (0, _moment2.default)() : arguments[2];
-	
+	exports.default = function (base, options, current) {
+	  current = current || (0, _moment2.default)();
 	  var endAt = options.end_at;
 	  var interval = options.interval > 0 ? options.interval : 1; // set invalid interval to 1
 	
@@ -348,9 +345,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	exports.default = function (base, options) {
-	  var current = arguments.length <= 2 || arguments[2] === undefined ? (0, _moment2.default)() : arguments[2];
-	
+	exports.default = function (base, options, current) {
+	  current = current || (0, _moment2.default)();
 	  var endAt = options.end_at;
 	  var interval = options.interval > 0 ? options.interval : 1; // set invalid interval to 1
 	  var days_week = options.days_week;

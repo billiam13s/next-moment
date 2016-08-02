@@ -2,7 +2,8 @@ import moment from 'moment';
 import adjustDST from './adjustDST';
 
 
-export default function(base, options, current = moment()) {
+export default function(base, options, current) {
+  current = current || moment();
   let endAt = options.end_at;
   const interval = options.interval > 0 ? options.interval : 1; // set invalid interval to 1
 
