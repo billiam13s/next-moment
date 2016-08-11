@@ -1,21 +1,26 @@
 import moment from 'moment';
 import adjustDST from './adjustDST';
+import {
+  checkVars
+} from './helper';
+
 
 export default function(base, options, current) {
-  current = current || moment();
-  let endAt = options.end_at;
-  const interval = options.interval > 0 ? options.interval : 1; // set invalid interval to 1
+  const {
+    CURRENT,
+    BASE,
+    INTERVAL,
+    END_AT,
+    INTERRUPT
+  } = checkVars(
+    current,
+    base,
+    options.interval,
+    options.end_at,
+    options.interrupt
+  );
+
   const days_week = options.days_week;
-
-  // convert to moment
-  if (!moment.isMoment(base))
-    base = moment(base);
-  if (endAt && !moment.isMoment(endAt))
-    endAt = moment(endAt);
-
-  // current moment in time
-  if (!moment.isMoment(current))
-    current = moment(current);
 
   let nextStart = false;
   let diffInterval = 0;
@@ -29,23 +34,23 @@ export default function(base, options, current) {
     let fRepeatWeekAfter = null; // holder for next repeat is on the following week*.
 
     days_week.forEach(function(currentValue) {
-      daysOnWk.push(base.clone().day(currentValue));
+      daysOnWk.push(BASE.clone().day(currentValue));
     });
 
     for (i = 0; i < daysOnWk.length && !found; i++) {
       dayWk = daysOnWk[i];
 
-      if (options.interrupt) {
-        if (dayWk.isAfter(current) && dayWk.isAfter(base)) {
+      if (INTERRUPT) {
+        if (dayWk.isAfter(CURRENT) && dayWk.isAfter(BASE)) {
           nextStart = dayWk;
           found = true;
         }
       } else {
         // non interrupt
-        if (current.isBefore(dayWk) && base.isBefore(dayWk)) {
+        if (CURRENT.isBefore(dayWk) && BASE.isBefore(dayWk)) {
           nextStart = dayWk;
           found = true;
-        } else if (current.isAfter(dayWk) && base.isBefore(dayWk)) {
+        } else if (CURRENT.isAfter(dayWk) && BASE.isBefore(dayWk)) {
           nextStart = dayWk;
           found = true;
         }
@@ -56,12 +61,12 @@ export default function(base, options, current) {
       dayWk = daysOnWk[i];
       diffInterval = 0;
 
-      if (options.interrupt) {
-        diffInterval = current.diff(base, "weeks");
+      if (INTERRUPT) {
+        diffInterval = CURRENT.diff(BASE, "weeks");
         diffInterval = diffInterval > 0 ? diffInterval - 1 : 0;
       }
 
-      addInterval = (Math.floor(diffInterval / interval) + 1) * interval;
+      addInterval = (Math.floor(diffInterval / INTERVAL) + 1) * INTERVAL;
       dayWk = dayWk.add(addInterval, "weeks");
 
       if (!fRepeatWeekAfter) {
@@ -70,16 +75,16 @@ export default function(base, options, current) {
         fRepeatWeekAfter = dayWk.clone().add(addInterval, "weeks");
       }
 
-      if (options.interrupt) {
-        if (dayWk.isAfter(current)) {
+      if (INTERRUPT) {
+        if (dayWk.isAfter(CURRENT)) {
           nextStart = dayWk;
           found = true;
         }
       } else {
-        if (current.isBefore(dayWk) && base.isBefore(dayWk)) {
+        if (CURRENT.isBefore(dayWk) && BASE.isBefore(dayWk)) {
           nextStart = dayWk;
           found = true;
-        } else if (current.isAfter(dayWk) && base.isBefore(dayWk)) {
+        } else if (CURRENT.isAfter(dayWk) && BASE.isBefore(dayWk)) {
           nextStart = dayWk;
           found = true;
         }
@@ -91,16 +96,16 @@ export default function(base, options, current) {
     }
   } else {
     diffInterval = 0;
-    if (options.interrupt) {
-      diffInterval = current.diff(base, "weeks");
+    if (INTERRUPT) {
+      diffInterval = CURRENT.diff(BASE, "weeks");
       diffInterval = diffInterval > 0 ? diffInterval : 0;
     }
 
-    addInterval = (Math.floor(diffInterval / interval) + 1) * interval;
-    nextStart = base.clone().add(addInterval, "weeks");
+    addInterval = (Math.floor(diffInterval / INTERVAL) + 1) * INTERVAL;
+    nextStart = BASE.clone().add(addInterval, "weeks");
   }
 
-  if (endAt && nextStart.isAfter(endAt)) {
+  if (END_AT && nextStart.isAfter(END_AT)) {
     nextStart = false;
   }
 

@@ -1,32 +1,35 @@
 import moment from 'moment';
 import adjustDST from './adjustDST';
+import {
+  checkVars
+} from './helper';
 
 
 export default function(base, options, current) {
-  current = current || moment();
-  let endAt = options.end_at;
-  const interval = options.interval > 0 ? options.interval : 1; // set invalid interval to 1
-
-  // convert to moment
-  if (!moment.isMoment(base))
-    base = moment(base);
-  if (endAt && !moment.isMoment(endAt))
-    endAt = moment(endAt);
-
-  // current moment in time
-  if (!moment.isMoment(current))
-    current = moment(current);
+  const {
+    CURRENT,
+    BASE,
+    INTERVAL,
+    END_AT,
+    INTERRUPT
+  } = checkVars(
+    current,
+    base,
+    options.interval,
+    options.end_at,
+    options.interrupt
+  );
 
   let diffInterval = 0;
-  if (options.interrupt) {
-    diffInterval = current.diff(base, "days");
+  if (INTERRUPT) {
+    diffInterval = CURRENT.diff(BASE, "days");
     diffInterval = diffInterval > 0 ? diffInterval : 0;
   }
 
-  const addInterval = (Math.floor(diffInterval / interval) + 1) * interval;
-  let nextStart = base.clone().add(addInterval, "days");
+  const ADD_INTERVAL = (Math.floor(diffInterval / INTERVAL) + 1) * INTERVAL;
+  let nextStart = BASE.clone().add(ADD_INTERVAL, "days");
 
-  if (endAt && nextStart.isAfter(endAt)) {
+  if (END_AT && nextStart.isAfter(END_AT)) {
     return false;
   }
 
