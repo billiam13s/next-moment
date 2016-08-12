@@ -105,7 +105,7 @@ describe("weekly", () => {
       done();
 
     });
-  }); // Non interrupt 15min interval 35min length
+  }); // End of Non interrupt
 
   describe("Non interrupt 2wks interval 6wks length", () => {
     const startAt = TODAY.clone();
