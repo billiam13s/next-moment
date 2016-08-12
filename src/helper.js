@@ -6,6 +6,9 @@ export function checkVars(current, base, interval, endAt, interrupt) {
   if (!moment.isMoment(current))
     current = moment(current);
 
+  if(interrupt === undefined)
+    interrupt = false;
+
   // set invalid interval to 1
   interval = interval > 0 ? interval : 1;
 
