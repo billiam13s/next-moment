@@ -3,7 +3,9 @@ import {
 } from 'chai'
 import moment from 'moment';
 
-import adjustDST from '../src/adjustDST';
+import {
+  adjustDST
+} from '../../src/helper';
 
 // 2015 Canada EST Daylight Saving times
 describe("Helper", () => {

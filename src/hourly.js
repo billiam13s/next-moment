@@ -1,6 +1,6 @@
 import moment from 'moment';
-import adjustDST from './adjustDST';
 import {
+  adjustDST,
   checkVars
 } from './helper';
 
