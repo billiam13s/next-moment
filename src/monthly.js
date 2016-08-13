@@ -5,22 +5,27 @@ import {
 } from './helper';
 
 
-function calculateDayOfWeek(CURRENT, BASE, INTERVAL, INTERRUPT) {
+function calculateDayOfWeek(CURRENT, BASE, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT) {
   let diffInterval = 0;
   let addInterval = 0;
 }
 
-function calculateDayOfMonth(CURRENT, BASE, INTERVAL, INTERRUPT) {
-  let diffInterval = 0;
-  // let addInterval = 0;
+function calculateDayOfMonth(CURRENT, BASE, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT) {
+  let nextStart = BASE.clone().add(INTERVAL, "months");
 
-  if (INTERRUPT) {
-    diffInterval = CURRENT.diff(BASE, "months");
-    diffInterval = diffInterval > 0 ? diffInterval : 0;
+  const LAST_DATE_OF_MONTH = BASE.clone().endOf("month");
+  const LAST_DATE_OF_NEXT_START = nextStart.clone().endOf("month");
+
+  if (BASE.isSame(LAST_DATE_OF_MONTH, 'day') &&
+    !nextStart.isSame(LAST_DATE_OF_NEXT_START, 'day') &&
+    LAST_DATE_OF_NEXT_START.isAfter(nextStart) &&
+    STICK_TO_LAST_DAY) {
+    nextStart = nextStart.clone().set("date", LAST_DATE_OF_NEXT_START.date());
   }
 
-  const ADD_INTERVAL = (Math.floor(diffInterval / INTERVAL) + 1) * INTERVAL;
-  let nextStart = BASE.clone().add(ADD_INTERVAL, "months");
+  if (INTERRUPT && CURRENT.isAfter(nextStart)) {
+    nextStart = calculateDayOfMonth(CURRENT, nextStart, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT);
+  }
 
   return nextStart
 }
@@ -40,16 +45,17 @@ export default function(base, options, current) {
     options.interrupt
   );
 
-  const monthlyRepeatBy = options.monthly_repeat_by;
+  const MONTHLY_REPEAT_BY = options.monthly_repeat_by;
+  const STICK_TO_LAST_DAY = options.stick_to_last_day;
 
   let nextStart = false;
 
-  switch (monthlyRepeatBy) {
+  switch (MONTHLY_REPEAT_BY) {
     case "day_of_week":
-      nextStart = calculateDayOfWeek(CURRENT, BASE, INTERVAL, INTERRUPT);
+      nextStart = calculateDayOfWeek(CURRENT, BASE, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT);
       break;
     case "day_of_month":
-      nextStart = calculateDayOfMonth(CURRENT, BASE, INTERVAL, INTERRUPT);
+      nextStart = calculateDayOfMonth(CURRENT, BASE, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT);
       break;
     default:
 
