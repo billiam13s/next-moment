@@ -33,7 +33,7 @@ export default class NextMoment {
         break;
 
       case "monthly":
-        result = weekly(this.start, this.options, this.current);
+        result = monthly(this.start, this.options, this.current);
         break;
 
       default:

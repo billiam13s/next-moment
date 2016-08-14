@@ -131,7 +131,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          break;
 	
 	        case "monthly":
-	          result = (0, _weekly2.default)(this.start, this.options, this.current);
+	          result = (0, _monthly2.default)(this.start, this.options, this.current);
 	          break;
 	
 	        default:
