@@ -3,6 +3,7 @@ import minutely from './minutely';
 import hourly from './hourly';
 import daily from './daily';
 import weekly from './weekly';
+import monthly from './monthly';
 
 export default class NextMoment {
   constructor(start, options, current = null) {
@@ -28,6 +29,10 @@ export default class NextMoment {
         break;
 
       case "weekly":
+        result = weekly(this.start, this.options, this.current);
+        break;
+
+      case "monthly":
         result = weekly(this.start, this.options, this.current);
         break;
 

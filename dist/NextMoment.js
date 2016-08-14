@@ -89,6 +89,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _weekly2 = _interopRequireDefault(_weekly);
 	
+	var _monthly = __webpack_require__(8);
+	
+	var _monthly2 = _interopRequireDefault(_monthly);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -126,6 +130,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	          result = (0, _weekly2.default)(this.start, this.options, this.current);
 	          break;
 	
+	        case "monthly":
+	          result = (0, _weekly2.default)(this.start, this.options, this.current);
+	          break;
+	
 	        default:
 	          break;
 	      }
@@ -156,29 +164,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	
 	exports.default = function (base, options, current) {
-	  current = current || (0, _moment2.default)();
-	  var endAt = options.end_at;
-	  var interval = options.interval > 0 ? options.interval : 1; // set invalid interval to 1
+	  var _checkVars = (0, _helper.checkVars)(current, base, options.interval, options.end_at, options.interrupt);
 	
-	  // convert to moment
-	  if (!_moment2.default.isMoment(base)) base = (0, _moment2.default)(base);
-	  if (endAt && !_moment2.default.isMoment(endAt)) endAt = (0, _moment2.default)(endAt);
+	  var CURRENT = _checkVars.CURRENT;
+	  var BASE = _checkVars.BASE;
+	  var INTERVAL = _checkVars.INTERVAL;
+	  var END_AT = _checkVars.END_AT;
+	  var INTERRUPT = _checkVars.INTERRUPT;
 	
-	  // current moment in time
-	  if (!_moment2.default.isMoment(current)) current = (0, _moment2.default)(current);
 	
 	  var diffInterval = 0;
-	  if (options.interrupt) {
-	    diffInterval = current.diff(base, "minutes");
+	  if (INTERRUPT) {
+	    diffInterval = CURRENT.diff(BASE, "minutes");
 	    diffInterval = diffInterval > 0 ? diffInterval : 0;
 	  }
 	
-	  var addInterval = (Math.floor(diffInterval / interval) + 1) * interval;
-	  var nextStart = base.clone().add(addInterval, "minutes");
+	  var ADD_INTERVAL = (Math.floor(diffInterval / INTERVAL) + 1) * INTERVAL;
+	  var nextStart = BASE.clone().add(ADD_INTERVAL, "minutes");
 	
-	  nextStart = (0, _adjustDST2.default)(base, nextStart);
+	  nextStart = (0, _helper.adjustDST)(BASE, nextStart);
 	
-	  if (endAt && nextStart.isAfter(endAt)) {
+	  if (END_AT && nextStart.isAfter(END_AT)) {
 	    return false;
 	  }
 	
@@ -189,9 +195,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _adjustDST = __webpack_require__(4);
-	
-	var _adjustDST2 = _interopRequireDefault(_adjustDST);
+	var _helper = __webpack_require__(4);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -206,8 +210,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.checkVars = exports.adjustDST = undefined;
 	
-	exports.default = function (base, next) {
+	var _moment = __webpack_require__(2);
+	
+	var _moment2 = _interopRequireDefault(_moment);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function adjustDST(base, next) {
 	  if (!_moment2.default.isMoment(base) || !_moment2.default.isMoment(next)) {
 	    return false;
 	  }
@@ -225,13 +236,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return result;
 	};
 	
-	var _moment = __webpack_require__(2);
+	function checkVars(current, base, interval, endAt, interrupt) {
+	  // current moment in time
+	  current = current || (0, _moment2.default)();
+	  if (!_moment2.default.isMoment(current)) current = (0, _moment2.default)(current);
 	
-	var _moment2 = _interopRequireDefault(_moment);
+	  if (interrupt === undefined) interrupt = false;
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	  // set invalid interval to 1
+	  interval = interval > 0 ? interval : 1;
 	
-	;
+	  // convert to moment
+	  if (!_moment2.default.isMoment(base)) base = (0, _moment2.default)(base);
+	  if (endAt && !_moment2.default.isMoment(endAt)) endAt = (0, _moment2.default)(endAt);
+	
+	  return {
+	    CURRENT: current,
+	    BASE: base,
+	    INTERVAL: interval,
+	    END_AT: endAt,
+	    INTERRUPT: interrupt
+	  };
+	}
+	
+	exports.adjustDST = adjustDST;
+	exports.checkVars = checkVars;
 
 /***/ },
 /* 5 */
@@ -244,29 +273,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	
 	exports.default = function (base, options, current) {
-	  current = current || (0, _moment2.default)();
-	  var endAt = options.end_at;
-	  var interval = options.interval > 0 ? options.interval : 1; // set invalid interval to 1
+	  var _checkVars = (0, _helper.checkVars)(current, base, options.interval, options.end_at, options.interrupt);
 	
-	  // convert to moment
-	  if (!_moment2.default.isMoment(base)) base = (0, _moment2.default)(base);
-	  if (endAt && !_moment2.default.isMoment(endAt)) endAt = (0, _moment2.default)(endAt);
+	  var CURRENT = _checkVars.CURRENT;
+	  var BASE = _checkVars.BASE;
+	  var INTERVAL = _checkVars.INTERVAL;
+	  var END_AT = _checkVars.END_AT;
+	  var INTERRUPT = _checkVars.INTERRUPT;
 	
-	  // current moment in time
-	  if (!_moment2.default.isMoment(current)) current = (0, _moment2.default)(current);
 	
 	  var diffInterval = 0;
-	  if (options.interrupt) {
-	    diffInterval = current.diff(base, "hours");
+	  if (INTERRUPT) {
+	    diffInterval = CURRENT.diff(BASE, "hours");
 	    diffInterval = diffInterval > 0 ? diffInterval : 0;
 	  }
 	
-	  var addInterval = (Math.floor(diffInterval / interval) + 1) * interval;
-	  var nextStart = base.clone().add(addInterval, "hours");
+	  var ADD_INTERVAL = (Math.floor(diffInterval / INTERVAL) + 1) * INTERVAL;
+	  var nextStart = BASE.clone().add(ADD_INTERVAL, "hours");
 	
-	  nextStart = (0, _adjustDST2.default)(base, nextStart);
+	  nextStart = (0, _helper.adjustDST)(BASE, nextStart);
 	
-	  if (endAt && nextStart.isAfter(endAt)) {
+	  if (END_AT && nextStart.isAfter(END_AT)) {
 	    return false;
 	  }
 	
@@ -277,9 +304,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _adjustDST = __webpack_require__(4);
-	
-	var _adjustDST2 = _interopRequireDefault(_adjustDST);
+	var _helper = __webpack_require__(4);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -296,27 +321,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	
 	exports.default = function (base, options, current) {
-	  current = current || (0, _moment2.default)();
-	  var endAt = options.end_at;
-	  var interval = options.interval > 0 ? options.interval : 1; // set invalid interval to 1
+	  var _checkVars = (0, _helper.checkVars)(current, base, options.interval, options.end_at, options.interrupt);
 	
-	  // convert to moment
-	  if (!_moment2.default.isMoment(base)) base = (0, _moment2.default)(base);
-	  if (endAt && !_moment2.default.isMoment(endAt)) endAt = (0, _moment2.default)(endAt);
+	  var CURRENT = _checkVars.CURRENT;
+	  var BASE = _checkVars.BASE;
+	  var INTERVAL = _checkVars.INTERVAL;
+	  var END_AT = _checkVars.END_AT;
+	  var INTERRUPT = _checkVars.INTERRUPT;
 	
-	  // current moment in time
-	  if (!_moment2.default.isMoment(current)) current = (0, _moment2.default)(current);
 	
 	  var diffInterval = 0;
-	  if (options.interrupt) {
-	    diffInterval = current.diff(base, "days");
+	  if (INTERRUPT) {
+	    diffInterval = CURRENT.diff(BASE, "days");
 	    diffInterval = diffInterval > 0 ? diffInterval : 0;
 	  }
 	
-	  var addInterval = (Math.floor(diffInterval / interval) + 1) * interval;
-	  var nextStart = base.clone().add(addInterval, "days");
+	  var ADD_INTERVAL = (Math.floor(diffInterval / INTERVAL) + 1) * INTERVAL;
+	  var nextStart = BASE.clone().add(ADD_INTERVAL, "days");
 	
-	  if (endAt && nextStart.isAfter(endAt)) {
+	  if (END_AT && nextStart.isAfter(END_AT)) {
 	    return false;
 	  }
 	
@@ -327,9 +350,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _adjustDST = __webpack_require__(4);
-	
-	var _adjustDST2 = _interopRequireDefault(_adjustDST);
+	var _helper = __webpack_require__(4);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -346,17 +367,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	
 	exports.default = function (base, options, current) {
-	  current = current || (0, _moment2.default)();
-	  var endAt = options.end_at;
-	  var interval = options.interval > 0 ? options.interval : 1; // set invalid interval to 1
+	  var _checkVars = (0, _helper.checkVars)(current, base, options.interval, options.end_at, options.interrupt);
+	
+	  var CURRENT = _checkVars.CURRENT;
+	  var BASE = _checkVars.BASE;
+	  var INTERVAL = _checkVars.INTERVAL;
+	  var END_AT = _checkVars.END_AT;
+	  var INTERRUPT = _checkVars.INTERRUPT;
+	
+	
 	  var days_week = options.days_week;
-	
-	  // convert to moment
-	  if (!_moment2.default.isMoment(base)) base = (0, _moment2.default)(base);
-	  if (endAt && !_moment2.default.isMoment(endAt)) endAt = (0, _moment2.default)(endAt);
-	
-	  // current moment in time
-	  if (!_moment2.default.isMoment(current)) current = (0, _moment2.default)(current);
 	
 	  var nextStart = false;
 	  var diffInterval = 0;
@@ -371,23 +391,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var fRepeatWeekAfter = null; // holder for next repeat is on the following week*.
 	
 	      days_week.forEach(function (currentValue) {
-	        daysOnWk.push(base.clone().day(currentValue));
+	        daysOnWk.push(BASE.clone().day(currentValue));
 	      });
 	
 	      for (i = 0; i < daysOnWk.length && !found; i++) {
 	        dayWk = daysOnWk[i];
 	
-	        if (options.interrupt) {
-	          if (dayWk.isAfter(current) && dayWk.isAfter(base)) {
+	        if (INTERRUPT) {
+	          if (dayWk.isAfter(CURRENT) && dayWk.isAfter(BASE)) {
 	            nextStart = dayWk;
 	            found = true;
 	          }
 	        } else {
 	          // non interrupt
-	          if (current.isBefore(dayWk) && base.isBefore(dayWk)) {
+	          if (CURRENT.isBefore(dayWk) && BASE.isBefore(dayWk)) {
 	            nextStart = dayWk;
 	            found = true;
-	          } else if (current.isAfter(dayWk) && base.isBefore(dayWk)) {
+	          } else if (CURRENT.isAfter(dayWk) && BASE.isBefore(dayWk)) {
 	            nextStart = dayWk;
 	            found = true;
 	          }
@@ -398,12 +418,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        dayWk = daysOnWk[i];
 	        diffInterval = 0;
 	
-	        if (options.interrupt) {
-	          diffInterval = current.diff(base, "weeks");
+	        if (INTERRUPT) {
+	          diffInterval = CURRENT.diff(BASE, "weeks");
 	          diffInterval = diffInterval > 0 ? diffInterval - 1 : 0;
 	        }
 	
-	        addInterval = (Math.floor(diffInterval / interval) + 1) * interval;
+	        addInterval = (Math.floor(diffInterval / INTERVAL) + 1) * INTERVAL;
 	        dayWk = dayWk.add(addInterval, "weeks");
 	
 	        if (!fRepeatWeekAfter) {
@@ -412,16 +432,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	          fRepeatWeekAfter = dayWk.clone().add(addInterval, "weeks");
 	        }
 	
-	        if (options.interrupt) {
-	          if (dayWk.isAfter(current)) {
+	        if (INTERRUPT) {
+	          if (dayWk.isAfter(CURRENT)) {
 	            nextStart = dayWk;
 	            found = true;
 	          }
 	        } else {
-	          if (current.isBefore(dayWk) && base.isBefore(dayWk)) {
+	          if (CURRENT.isBefore(dayWk) && BASE.isBefore(dayWk)) {
 	            nextStart = dayWk;
 	            found = true;
-	          } else if (current.isAfter(dayWk) && base.isBefore(dayWk)) {
+	          } else if (CURRENT.isAfter(dayWk) && BASE.isBefore(dayWk)) {
 	            nextStart = dayWk;
 	            found = true;
 	          }
@@ -434,16 +454,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    })();
 	  } else {
 	    diffInterval = 0;
-	    if (options.interrupt) {
-	      diffInterval = current.diff(base, "weeks");
+	    if (INTERRUPT) {
+	      diffInterval = CURRENT.diff(BASE, "weeks");
 	      diffInterval = diffInterval > 0 ? diffInterval : 0;
 	    }
 	
-	    addInterval = (Math.floor(diffInterval / interval) + 1) * interval;
-	    nextStart = base.clone().add(addInterval, "weeks");
+	    addInterval = (Math.floor(diffInterval / INTERVAL) + 1) * INTERVAL;
+	    nextStart = BASE.clone().add(addInterval, "weeks");
 	  }
 	
-	  if (endAt && nextStart.isAfter(endAt)) {
+	  if (END_AT && nextStart.isAfter(END_AT)) {
 	    nextStart = false;
 	  }
 	
@@ -454,13 +474,84 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _adjustDST = __webpack_require__(4);
-	
-	var _adjustDST2 = _interopRequireDefault(_adjustDST);
+	var _helper = __webpack_require__(4);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (base, options, current) {
+	  var _checkVars = (0, _helper.checkVars)(current, base, options.interval, options.end_at, options.interrupt);
+	
+	  var CURRENT = _checkVars.CURRENT;
+	  var BASE = _checkVars.BASE;
+	  var INTERVAL = _checkVars.INTERVAL;
+	  var END_AT = _checkVars.END_AT;
+	  var INTERRUPT = _checkVars.INTERRUPT;
+	
+	
+	  var MONTHLY_REPEAT_BY = options.monthly_repeat_by;
+	  var STICK_TO_LAST_DAY = options.stick_to_last_day;
+	
+	  var nextStart = false;
+	
+	  switch (MONTHLY_REPEAT_BY) {
+	    case "day_of_week":
+	      nextStart = calculateDayOfWeek(CURRENT, BASE, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT);
+	      break;
+	    case "day_of_month":
+	      nextStart = calculateDayOfMonth(CURRENT, BASE, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT);
+	      break;
+	    default:
+	
+	  }
+	
+	  if (END_AT && _moment2.default.isMoment(nextStart) && nextStart.isAfter(END_AT)) {
+	    nextStart = false;
+	  }
+	
+	  return nextStart;
+	};
+	
+	var _moment = __webpack_require__(2);
+	
+	var _moment2 = _interopRequireDefault(_moment);
+	
+	var _helper = __webpack_require__(4);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function calculateDayOfWeek(CURRENT, BASE, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT) {
+	  var diffInterval = 0;
+	  var addInterval = 0;
+	}
+	
+	function calculateDayOfMonth(CURRENT, BASE, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT) {
+	  var nextStart = BASE.clone().add(INTERVAL, "months");
+	
+	  var LAST_DATE_OF_MONTH = BASE.clone().endOf("month");
+	  var LAST_DATE_OF_NEXT_START = nextStart.clone().endOf("month");
+	
+	  if (BASE.isSame(LAST_DATE_OF_MONTH, 'day') && !nextStart.isSame(LAST_DATE_OF_NEXT_START, 'day') && LAST_DATE_OF_NEXT_START.isAfter(nextStart) && STICK_TO_LAST_DAY) {
+	    nextStart = nextStart.clone().set("date", LAST_DATE_OF_NEXT_START.date());
+	  }
+	
+	  if (INTERRUPT && CURRENT.isAfter(nextStart)) {
+	    nextStart = calculateDayOfMonth(CURRENT, nextStart, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT);
+	  }
+	
+	  return nextStart;
+	}
 
 /***/ }
 /******/ ])
