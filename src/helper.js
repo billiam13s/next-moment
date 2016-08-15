@@ -46,7 +46,49 @@ function checkVars(current, base, interval, endAt, interrupt) {
   }
 }
 
+
+function getDaysWeekArray(current) {
+  if (current && !moment.isMoment(current)) {
+    current = moment(current);
+  }
+
+  const TODAY = current || moment();
+  const FIRST_DATE = TODAY.clone().startOf("months");
+  const LAST_DATE = TODAY.clone().endOf("month");
+
+  const ST_WK_7TH_DAY = FIRST_DATE.clone().endOf("week");
+  const LAST_WK_1ST_DAY = LAST_DATE.clone().startOf("week");
+
+  const TODAY_WEEK_DAY = TODAY.clone().day();
+  const DAY_OF_MOMTH = TODAY.clone().date();
+
+  const NUM_DAYS = LAST_DATE.date();
+  const NUM_WEEKS = Math.ceil(NUM_DAYS / 7);
+
+  let weekDays = new Array(NUM_WEEKS);
+  let indexWeek = 0;
+
+  for (let i = FIRST_DATE.date(); i <= NUM_DAYS && indexWeek < weekDays.length; i++) {
+
+    let iDate = FIRST_DATE.clone().set("date", i)
+    if ((ST_WK_7TH_DAY.date() < i && iDate.day() == FIRST_DATE.day())) {
+      indexWeek++;
+    }
+
+    if (!weekDays[indexWeek]) {
+      weekDays[indexWeek] = new Array(7);
+    }
+
+    let indexWeekDay = iDate.day();
+
+    weekDays[indexWeek][indexWeekDay] = iDate;
+  }
+
+  return weekDays;
+}
+
 export {
   adjustDST,
-  checkVars
+  checkVars,
+  getDaysWeekArray
 }
