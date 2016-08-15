@@ -70,7 +70,7 @@ function getDaysWeekArray(current) {
 
   for (let i = FIRST_DATE.date(); i <= NUM_DAYS && indexWeek < weekDays.length; i++) {
 
-    let iDate = FIRST_DATE.clone().set("date", i)
+    let iDate = TODAY.clone().set("date", i)
     if ((ST_WK_7TH_DAY.date() < i && iDate.day() == FIRST_DATE.day())) {
       indexWeek++;
     }
