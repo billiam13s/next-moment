@@ -40,7 +40,7 @@ describe("monthly", () => {
     const END_AT = RD_MONTH_EXPECTED.clone().add(1, "days");
     const INTERVAL = 1;
     const options = {
-      "INTERVAL": INTERVAL,
+      "interval": INTERVAL,
       "monthly_repeat_by": "day_of_week",
       "end_at": END_AT
     };
