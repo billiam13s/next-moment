@@ -4,7 +4,7 @@ next moment is use for calculate the next sequence of timed event from basic con
 - hourly
 - daily
 - weekly
-- monthly (incomplete)
+- monthly
 
 ```
 start = moment();
@@ -31,5 +31,4 @@ nm.getNext();
 ## TODO
 
 1. getNext().getNext()
-2. monthly - day of the week(ie: first Sunday)
-3. yearly
+2. yearly
