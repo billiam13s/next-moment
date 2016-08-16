@@ -113,29 +113,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function getNext() {
 	      var result = false;
 	
-	      switch (this.options.repeat) {
-	        case "minutely":
-	          result = (0, _minutely2.default)(this.start, this.options, this.current);
-	          break;
+	      if (_moment2.default.isDate(this.start) || _moment2.default.isMoment(this.start)) {
+	        switch (this.options.repeat) {
+	          case "minutely":
+	            result = (0, _minutely2.default)(this.start, this.options, this.current);
+	            break;
 	
-	        case "hourly":
-	          result = (0, _hourly2.default)(this.start, this.options, this.current);
-	          break;
+	          case "hourly":
+	            result = (0, _hourly2.default)(this.start, this.options, this.current);
+	            break;
 	
-	        case "daily":
-	          result = (0, _daily2.default)(this.start, this.options, this.current);
-	          break;
+	          case "daily":
+	            result = (0, _daily2.default)(this.start, this.options, this.current);
+	            break;
 	
-	        case "weekly":
-	          result = (0, _weekly2.default)(this.start, this.options, this.current);
-	          break;
+	          case "weekly":
+	            result = (0, _weekly2.default)(this.start, this.options, this.current);
+	            break;
 	
-	        case "monthly":
-	          result = (0, _monthly2.default)(this.start, this.options, this.current);
-	          break;
+	          case "monthly":
+	            result = (0, _monthly2.default)(this.start, this.options, this.current);
+	            break;
 	
-	        default:
-	          break;
+	          default:
+	            break;
+	        }
+	
+	        this.start = result;
 	      }
 	
 	      return _moment2.default.isMoment(result) ? result.toDate() : false;
