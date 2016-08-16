@@ -210,7 +210,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.checkVars = exports.adjustDST = undefined;
+	exports.getDaysWeekArray = exports.checkVars = exports.adjustDST = undefined;
 	
 	var _moment = __webpack_require__(2);
 	
@@ -259,8 +259,49 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 	}
 	
+	function getDaysWeekArray(current) {
+	  if (current && !_moment2.default.isMoment(current)) {
+	    current = (0, _moment2.default)(current);
+	  }
+	
+	  var TODAY = current || (0, _moment2.default)();
+	  var FIRST_DATE = TODAY.clone().startOf("months");
+	  var LAST_DATE = TODAY.clone().endOf("month");
+	
+	  var ST_WK_7TH_DAY = FIRST_DATE.clone().endOf("week");
+	  var LAST_WK_1ST_DAY = LAST_DATE.clone().startOf("week");
+	
+	  var TODAY_WEEK_DAY = TODAY.clone().day();
+	  var DAY_OF_MOMTH = TODAY.clone().date();
+	
+	  var NUM_DAYS = LAST_DATE.date();
+	  var NUM_WEEKS = Math.ceil(NUM_DAYS / 7);
+	
+	  var weekDays = new Array(NUM_WEEKS);
+	  var indexWeek = 0;
+	
+	  for (var i = FIRST_DATE.date(); i <= NUM_DAYS && indexWeek < weekDays.length; i++) {
+	
+	    var iDate = TODAY.clone().set("date", i);
+	    if (ST_WK_7TH_DAY.date() < i && iDate.day() == FIRST_DATE.day()) {
+	      indexWeek++;
+	    }
+	
+	    if (!weekDays[indexWeek]) {
+	      weekDays[indexWeek] = new Array(7);
+	    }
+	
+	    var indexWeekDay = iDate.day();
+	
+	    weekDays[indexWeek][indexWeekDay] = iDate;
+	  }
+	
+	  return weekDays;
+	}
+	
 	exports.adjustDST = adjustDST;
 	exports.checkVars = checkVars;
+	exports.getDaysWeekArray = getDaysWeekArray;
 
 /***/ },
 /* 5 */
@@ -507,7 +548,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  switch (MONTHLY_REPEAT_BY) {
 	    case "day_of_week":
-	      nextStart = calculateDayOfWeek(CURRENT, BASE, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT);
+	      nextStart = calculateDayOfWeek(CURRENT, BASE, INTERVAL, INTERRUPT);
 	      break;
 	    case "day_of_month":
 	      nextStart = calculateDayOfMonth(CURRENT, BASE, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT);
@@ -531,9 +572,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function calculateDayOfWeek(CURRENT, BASE, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT) {
+	function calculateDayOfWeek(CURRENT, BASE, INTERVAL, INTERRUPT) {
 	  var diffInterval = 0;
 	  var addInterval = 0;
+	
+	  var nextStart = false;
+	
+	  var DAY_OF_WEEK = BASE.day();
+	  var WK_NUM = Math.ceil(BASE.date() / 7) - 1;
+	
+	  // skip the 5th day week option. Not every month have 5th Sunday, Monday, etcs.
+	  if (WK_NUM < 4) {
+	    var NEXT_MONTH_TODAY = BASE.clone().add(INTERVAL, "months");
+	    var MONTH_DAYS_WEEK_ARR = (0, _helper.getDaysWeekArray)(NEXT_MONTH_TODAY);
+	
+	    nextStart = MONTH_DAYS_WEEK_ARR[WK_NUM][DAY_OF_WEEK];
+	
+	    if (INTERRUPT && CURRENT.isAfter(nextStart)) {
+	      nextStart = calculateDayOfWeek(CURRENT, nextStart, INTERVAL, INTERRUPT);
+	    }
+	  }
+	
+	  return nextStart;
 	}
 	
 	function calculateDayOfMonth(CURRENT, BASE, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT) {
