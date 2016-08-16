@@ -1,12 +1,33 @@
 import moment from 'moment';
 import {
-  checkVars
+  checkVars,
+  getDaysWeekArray
 } from './helper';
 
 
-function calculateDayOfWeek(CURRENT, BASE, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT) {
+function calculateDayOfWeek(CURRENT, BASE, INTERVAL, INTERRUPT) {
   let diffInterval = 0;
   let addInterval = 0;
+
+  let nextStart = false;
+
+  const DAY_OF_WEEK = BASE.day();
+  const WK_NUM = Math.ceil(BASE.date() / 7) - 1;
+
+  // skip the 5th day week option. Not every month have 5th Sunday, Monday, etcs.
+  if (WK_NUM < 4) {
+    const NEXT_MONTH_TODAY = BASE.clone().add(INTERVAL, "months");
+    const MONTH_DAYS_WEEK_ARR = getDaysWeekArray(NEXT_MONTH_TODAY);
+
+    nextStart = MONTH_DAYS_WEEK_ARR[WK_NUM][DAY_OF_WEEK];
+
+    if (INTERRUPT && CURRENT.isAfter(nextStart)) {
+      nextStart = calculateDayOfWeek(CURRENT, nextStart, INTERVAL, INTERRUPT);
+    }
+  }
+
+  return nextStart;
+
 }
 
 function calculateDayOfMonth(CURRENT, BASE, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT) {
@@ -51,7 +72,7 @@ export default function(base, options, current) {
 
   switch (MONTHLY_REPEAT_BY) {
     case "day_of_week":
-      nextStart = calculateDayOfWeek(CURRENT, BASE, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT);
+      nextStart = calculateDayOfWeek(CURRENT, BASE, INTERVAL, INTERRUPT);
       break;
     case "day_of_month":
       nextStart = calculateDayOfMonth(CURRENT, BASE, INTERVAL, STICK_TO_LAST_DAY, INTERRUPT);
