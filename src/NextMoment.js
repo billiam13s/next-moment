@@ -15,29 +15,34 @@ export default class NextMoment {
   getNext() {
     var result = false;
 
-    switch (this.options.repeat) {
-      case "minutely":
-        result = minutely(this.start, this.options, this.current);
-        break;
+    if (moment.isDate(this.start) || moment.isMoment(this.start)) {
+      switch (this.options.repeat) {
+        case "minutely":
+          result = minutely(this.start, this.options, this.current);
+          break;
 
-      case "hourly":
-        result = hourly(this.start, this.options, this.current);
-        break;
+        case "hourly":
+          result = hourly(this.start, this.options, this.current);
+          break;
 
-      case "daily":
-        result = daily(this.start, this.options, this.current);
-        break;
+        case "daily":
+          result = daily(this.start, this.options, this.current);
+          break;
 
-      case "weekly":
-        result = weekly(this.start, this.options, this.current);
-        break;
+        case "weekly":
+          result = weekly(this.start, this.options, this.current);
+          break;
 
-      case "monthly":
-        result = monthly(this.start, this.options, this.current);
-        break;
+        case "monthly":
+          result = monthly(this.start, this.options, this.current);
+          break;
 
-      default:
-        break;
+        default:
+          break;
+      }
+
+      this.start = result;
+
     }
 
     return moment.isMoment(result) ? result.toDate() : false;

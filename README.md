@@ -26,9 +26,10 @@ options = {
 
 nm = new NextMoment(start, options);
 nm.getNext();
+
+nm.getNext(); // second next reoccurring date
 ```
 
 ## TODO
 
-1. getNext().getNext()
-2. yearly
+1. yearly
