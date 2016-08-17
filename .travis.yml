@@ -4,4 +4,4 @@ node_js:
   - "6"
 
 before_script:
-  - echo 'Canada/Toronto' | sudo tee /etc/timezone
+  - export TZ=Canada/Toronto
