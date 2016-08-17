@@ -5,11 +5,11 @@ node_js:
 
 script:
   - npm test
+  - npm run coverage
   - npm run check-coverage
 
 before_script:
   - export TZ=Canada/Eastern
 
 after_success:
-  - npm run coverage
   - npm run report-coverage
