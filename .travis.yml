@@ -4,4 +4,4 @@ node_js:
   - "6"
 
 before_script:
-  - export TZ=Canada/Toronto
+  - export TZ=Canada/Eastern
