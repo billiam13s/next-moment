@@ -1,3 +1,5 @@
+[![Build Status][travis-image]][travis-url]
+
 next moment is use for calculate the next sequence of timed event from basic config object. (ie: calendar repeat event, repeat schedule tasks)
 
 - minutely
@@ -32,3 +34,6 @@ nm.getNext(); // second next reoccurring date
 ## TODO
 
 1. yearly
+
+[travis-image]: https://travis-ci.org/billiam13s/next-moment.svg?branch=master
+[travis-url]: https://travis-ci.org/billiam13s/next-moment
