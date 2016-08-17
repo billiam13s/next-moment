@@ -4,6 +4,7 @@ node_js:
   - "6"
 
 script:
+  - npm test
   - npm run check-coverage
 
 before_script:
