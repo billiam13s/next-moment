@@ -19,7 +19,6 @@ options = {
 
 // monthly options
 // options.monthly_repeat_by: "day_of_month|day_of_week"
-// day_of_week is **incomplete**
 
 // optional monthly option
 // options.stick_to_last_day = true // stick to the end of the month
