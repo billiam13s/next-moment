@@ -3,7 +3,7 @@ import {
 } from 'chai'
 import moment from 'moment';
 
-import NextMoment from '../src/NextMoment';
+import NextMoment from '../../src/NextMoment';
 
 
 describe("NextMoment", () => {

@@ -27,7 +27,7 @@
       }
     },
     "test": {
-      "command": "mocha test/**/*.test.js test/*.test.js ",
+      "command": "mocha test/**/*.test.js",
       "env": {
         "NODE_ENV": "test"
       }
