@@ -1,8 +1,19 @@
 {
   "name": "next-moment",
   "version": "1.1.1",
-  "description": "",
+  "description": "next moment is use for calculate the next sequence of timed event from basic config object",
   "homepage": "https://github.com/billiam13s/next-moment",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/billiam13s/next-moment"
+  },
+  "bugs": {
+    "url": "https://github.com/billiam13s/next-moment/issues"
+},
+  "keywords": [
+    "calendar repeat event",
+    "repeat schedule tasks"
+  ],
   "main": "dist/NextMoment.js",
   "scripts": {
     "build:dist": "better-npm-run build:dist",
@@ -33,8 +44,8 @@
       }
     }
   },
-  "author": "",
-  "license": "ISC",
+  "author": "William Sung",
+  "license": "Apache-2.0",
   "dependencies": {
     "moment": "^2.13.0"
   },
