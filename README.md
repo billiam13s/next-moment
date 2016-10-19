@@ -36,6 +36,10 @@ nm.getNext(); // second next reoccurring date
 
 1. yearly
 
+## License
+
+[Apache 2.0 license](https://github.com/billiam13s/next-moment/blob/master/LICENSE.md).
+
 [travis-image]: https://travis-ci.org/billiam13s/next-moment.svg?branch=master
 [travis-url]: https://travis-ci.org/billiam13s/next-moment
 
