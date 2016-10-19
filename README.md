@@ -1,3 +1,4 @@
+
 [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-badge]][coveralls-url]
 
 next moment is use for calculate the next sequence of timed event from basic config object. (ie: calendar repeat event, repeat schedule tasks)
