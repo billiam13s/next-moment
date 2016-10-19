@@ -1,6 +1,6 @@
 {
   "name": "next-moment",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "next moment is use for calculate the next sequence of timed event from basic config object",
   "homepage": "https://github.com/billiam13s/next-moment",
   "repository": {
@@ -9,7 +9,7 @@
   },
   "bugs": {
     "url": "https://github.com/billiam13s/next-moment/issues"
-},
+  },
   "keywords": [
     "calendar repeat event",
     "repeat schedule tasks"
