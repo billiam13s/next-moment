@@ -7,6 +7,13 @@
     "type": "git",
     "url": "https://github.com/billiam13s/next-moment"
   },
+  "bugs": {
+    "url": "https://github.com/billiam13s/next-moment/issues"
+},
+  "keywords": [
+    "calendar repeat event",
+    "repeat schedule tasks"
+  ],
   "main": "dist/NextMoment.js",
   "scripts": {
     "build:dist": "better-npm-run build:dist",
@@ -37,7 +44,7 @@
       }
     }
   },
-  "author": "",
+  "author": "William Sung",
   "license": "Apache-2.0",
   "dependencies": {
     "moment": "^2.13.0"
